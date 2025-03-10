@@ -1,8 +1,8 @@
-import React, { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useRandomPosition } from "../../hooks/useRandomPosition";
 import { useRandomImage } from "../../hooks/useRandomImage";
-import FloatingElement from "./FloatingElement";
+//import FloatingElement from "./FloatingElement";
 
 const MainVideoContainer = styled.div`
   display: flex;
@@ -42,11 +42,11 @@ export default function FloatingElements({
     character: string | null;
     gif: string | null;
     background: string | null;
-  };
+  } | null;
 }) {
   const floatingRef = useRef<HTMLDivElement | null>(null);
   const redZoneRef = useRef<HTMLDivElement | null>(null);
-  const { generateRandomPosition } = useRandomPosition(floatingRef, redZoneRef);
+  const { generateRandomPosition } = useRandomPosition(floatingRef);
   const { changeImage } = useRandomImage();
 
   // 🔹 Se ejecuta una sola vez al montar el componente

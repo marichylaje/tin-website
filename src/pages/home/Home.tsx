@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRandomImage } from "../../hooks/useRandomImage";
 import videoFile from "/assets/main/Reel_2025_seismotion_FINAL1.mp4";
 import openVideo from "/assets/opener/openvid1.webm";
@@ -38,7 +38,7 @@ const StyledVideo = styled.video`
 export default function Home({ isReload, setIsReload }: { isReload: boolean; setIsReload: (a: boolean) => void }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const openerRef = useRef<HTMLVideoElement | null>(null);
-  const { backgroundImage, characterImage, gifImage, changeImage, isLoading } = useRandomImage();
+  const { /*backgroundImage, characterImage, gifImage,*/ changeImage, isLoading } = useRandomImage();
 
   const [showLoader, setShowLoader] = useState(false);
 
@@ -77,13 +77,13 @@ export default function Home({ isReload, setIsReload }: { isReload: boolean; set
   }, [isLoading]);
 
   const mainVideo = <StyledMainVideo ref={videoRef} src={videoFile} autoPlay loop muted playsInline />;
-  const floatingItems = isLoading
+  /*const floatingItems = isLoading
     ? {}
     : {
         character: characterImage,
         background: backgroundImage,
         gif: gifImage,
-      };
+      };*/
 
   if(showLoader) return <Loading />
   return (
@@ -101,7 +101,7 @@ export default function Home({ isReload, setIsReload }: { isReload: boolean; set
       ) : (
         !isLoading && (
           <MainVideoContainer>
-            <FloatingElements mainVideo={mainVideo} floatingItems={floatingItems} />
+            <FloatingElements mainVideo={mainVideo} floatingItems={/*floatingItems*/ null} />
           </MainVideoContainer>
         )
       )}
