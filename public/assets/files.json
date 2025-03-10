@@ -1,0 +1,35 @@
+{
+    "files": {
+        "background": [
+            "/assets/background/background1.gif",
+            "/assets/background/background2.gif",
+            "/assets/background/background3.gif",
+            "/assets/background/background4.gif"
+        ],
+        "characters": [
+            "/assets/characters/character1.gif",
+            "/assets/characters/character2.gif",
+            "/assets/characters/character3.gif",
+            "/assets/characters/character4.gif"
+        ],
+        "floating": [
+        
+        ],
+        "gifs": [
+            "/assets/gifs/video1.gif",
+            "/assets/gifs/video2.gif",
+            "/assets/gifs/video3.gif",
+            "/assets/gifs/video4.gif",
+            "/assets/gifs/video5.gif"
+        ],
+        "loading": [
+            "/assets/loading/loading1.gif"
+        ],
+        "main": [
+            "/assets/main/Reel_2025_seismotion_FINAL1.mp4"
+        ],
+        "opener": [
+            "/assets/opener/openvid1.webm"
+        ]
+    }
+}
