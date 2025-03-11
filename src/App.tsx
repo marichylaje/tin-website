@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <>
-      {!isReload && <NavBar />}
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home isReload={isReload} setIsReload={setIsReload} />} />
         <Route path="/projects" element={<Projects setIsReload={setIsReload} />} />

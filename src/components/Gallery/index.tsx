@@ -49,7 +49,7 @@ export default function Gallery({ mediaArray }: { mediaArray: string[] }) {
           const isVideo = src.endsWith(".mp4") || src.endsWith(".webm");
 
           // 🎯 Seleccionar un segundo aleatorio para comenzar el video
-          const startTime = timeOptions[Math.floor(Math.random() * timeOptions.length)];
+          const startTime = timeOptions[index];
           const posterTime = startTime + 3;
 
           return (

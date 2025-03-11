@@ -6,7 +6,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f9fafb;
   padding: 2rem;
 `;
 
@@ -40,6 +39,7 @@ export const Input = styled.input`
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   outline: none;
+  background-color: white;
   &:focus {
     border-color: #3b82f6;
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
@@ -52,6 +52,7 @@ export const Textarea = styled.textarea`
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   outline: none;
+  background-color: white;
   resize: none;
   &:focus {
     border-color: #3b82f6;
@@ -60,7 +61,7 @@ export const Textarea = styled.textarea`
 `;
 
 export const Button = styled.button`
-  background-color: #2563eb;
+  background-color: #2e42a9;
   color: #ffffff;
   padding: 0.75rem;
   border-radius: 0.375rem;

@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const NavbarContainer = styled.nav`
-  z-index: 10;
+  z-index: 50;
   position: fixed;
   top: 20px;
   left: 50%;
@@ -11,26 +13,45 @@ const NavbarContainer = styled.nav`
   width: 90%;
   max-width: 800px;
   display: flex;
-  gap: 20px;
   justify-content: center;
   align-items: center;
   background: transparent;
-  overflow-x: auto; /* 🔹 Scroll horizontal en móviles */
-  white-space: nowrap;
   padding: 10px;
 
-  /* 🔹 Ocultar scrollbar en navegadores */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
   @media (max-width: 768px) {
-    width: 100%;
+    justify-content: space-between;
     left: 0;
     transform: none;
-    justify-content: flex-start;
-    padding: 10px 15px;
-    font-size: 16px;
+    width: 100%;
+    padding: 10px 20px;
+  }
+`;
+
+const MenuIcon = styled.div`
+  display: none;
+  font-size: 24px;
+  color: #2e42a9;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const NavLinksWrapper = styled(motion.div)`
+  display: flex;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    align-items: flex-start;
   }
 `;
 
@@ -42,8 +63,6 @@ const NavItem = styled(motion(NavLink))`
   transition: color 0.3s ease-in-out;
   cursor: pointer;
 
-  /* 🔹 Sombra en el texto para mejorar visibilidad */
-
   &.active {
     color: #01045a;
     -webkit-text-stroke: 1px #01045a;
@@ -54,14 +73,17 @@ const NavItem = styled(motion(NavLink))`
   }
 
   &:hover {
-    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.9); /* 🔥 Más intenso en hover */
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.9);
   }
 
-  &:last-child {
-    margin-right: 3rem;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    padding: 10px 0;
+    width: 100%;
   }
 `;
 
+// Links de navegación
 const links = [
   { name: "Home", path: "/" },
   { name: "Projects", path: "/projects" },
@@ -69,24 +91,45 @@ const links = [
 ];
 
 export default function NavBar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <NavbarContainer>
-      {links.map((link) => (
-        <NavItem
-          key={link.path}
-          to={link.path}
-          whileHover={{
-            y: [-3, 3, -3, 2, -2, 0],
-          }}
-          transition={{
-            duration: 0.4,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        >
-          {link.name}
-        </NavItem>
-      ))}
+      <MenuIcon onClick={toggleMenu}>
+        {isMenuOpen ? <FaTimes /> : <FaBars />}
+      </MenuIcon>
+
+      <AnimatePresence>
+        {(isMenuOpen || window.innerWidth > 768) && (
+          <NavLinksWrapper
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {links.map((link) => (
+              <NavItem
+                key={link.path}
+                to={link.path}
+                onClick={closeMenu}
+                whileHover={{
+                  y: [-3, 3, -3, 2, -2, 0],
+                }}
+                transition={{
+                  duration: 0.4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              >
+                {link.name}
+              </NavItem>
+            ))}
+          </NavLinksWrapper>
+        )}
+      </AnimatePresence>
     </NavbarContainer>
   );
 }

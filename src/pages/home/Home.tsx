@@ -4,9 +4,9 @@ import videoFile from "/assets/main/Reel_2025_seismotion_FINAL1.mp4";
 import openVideo from "/assets/opener/openvid1.webm";
 import styled, { keyframes } from "styled-components";
 import { FloatingElements } from "../../components";
-import Loading from "../../components/Loading"; // ✅ Importamos el componente
+import Loading from "../../components/Loading";
 
-// 🔄 Animación de Fade-in
+// 🔄 Animación Fade-in
 const fadeIn = keyframes`
   from { opacity: 0; }
   to { opacity: 1; }
@@ -20,32 +20,63 @@ const MainVideoContainer = styled.div`
   width: 100vw;
   height: 100vh;
   animation: ${fadeIn} 0.5s ease-in-out;
-  overflow: hidden; /* Bloquea el scroll */
+  overflow: hidden;
+  position: relative;
 `;
 
+// Estilos para el video principal, responsive
 const StyledMainVideo = styled.video`
   width: 75%;
   height: auto;
   border: 1px solid black;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    border: none;
+  }
+
+  @media (max-width: 480px) {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
 `;
 
+// Estilo para el video de apertura (opener)
 const StyledVideo = styled.video`
-  width: 100%;
-  height: auto;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
   overflow: hidden;
+  display: block;
+
+  @media (max-width: 768px) {
+    object-position: center;
+  }
 `;
 
-export default function Home({ isReload, setIsReload }: { isReload: boolean; setIsReload: (a: boolean) => void }) {
+export default function Home({
+  isReload,
+  setIsReload,
+}: {
+  isReload: boolean;
+  setIsReload: (a: boolean) => void;
+}) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const openerRef = useRef<HTMLVideoElement | null>(null);
-  const { /*backgroundImage, characterImage, gifImage,*/ changeImage, isLoading } = useRandomImage();
+  const { changeImage, isLoading } = useRandomImage();
 
   const [showLoader, setShowLoader] = useState(false);
 
   // 🔥 Muestra el Loader cada vez que se cambia la imagen
   const triggerLoader = () => {
     setShowLoader(true);
-    setTimeout(() => setShowLoader(false), 1000); // Se oculta en 2 segundos
+    setTimeout(() => setShowLoader(false), 1000);
   };
 
   useEffect(() => {
@@ -60,7 +91,7 @@ export default function Home({ isReload, setIsReload }: { isReload: boolean; set
 
   const handleGlobalClick = () => {
     if (!isLoading) {
-      triggerLoader(); // ✅ Activa el Loader
+      triggerLoader();
       changeImage();
 
       if (videoRef.current) {
@@ -76,16 +107,19 @@ export default function Home({ isReload, setIsReload }: { isReload: boolean; set
     return () => document.removeEventListener("click", handleGlobalClick);
   }, [isLoading]);
 
-  const mainVideo = <StyledMainVideo ref={videoRef} src={videoFile} autoPlay loop muted playsInline />;
-  /*const floatingItems = isLoading
-    ? {}
-    : {
-        character: characterImage,
-        background: backgroundImage,
-        gif: gifImage,
-      };*/
+  const mainVideo = (
+    <StyledMainVideo
+      ref={videoRef}
+      src={videoFile}
+      autoPlay
+      loop
+      muted
+      playsInline
+    />
+  );
 
-  if(showLoader) return <Loading />
+  if (showLoader) return <Loading />;
+
   return (
     <>
       {isReload ? (
@@ -101,7 +135,7 @@ export default function Home({ isReload, setIsReload }: { isReload: boolean; set
       ) : (
         !isLoading && (
           <MainVideoContainer>
-            <FloatingElements mainVideo={mainVideo} floatingItems={/*floatingItems*/ null} />
+            <FloatingElements mainVideo={mainVideo} floatingItems={null} />
           </MainVideoContainer>
         )
       )}
