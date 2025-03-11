@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Puedes agregar estilos globales si quieres */
 #root {
   max-width: 1280px;
   margin: 0 auto;

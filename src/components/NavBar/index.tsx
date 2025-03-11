@@ -65,7 +65,7 @@ const NavItem = styled(motion(NavLink))`
 const links = [
   { name: "Home", path: "/" },
   { name: "Projects", path: "/projects" },
-  { name: "Photos", path: "/photos" },
+  { name: "Contact", path: "/contact" },
 ];
 
 export default function NavBar() {
