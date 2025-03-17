@@ -32,7 +32,7 @@ const MenuIcon = styled.div`
   font-size: 24px;
   color: #2e42a9;
   cursor: pointer;
-
+  font-family: inherit;
   @media (max-width: 768px) {
     display: block;
   }
@@ -41,7 +41,7 @@ const MenuIcon = styled.div`
 const NavLinksWrapper = styled(motion.div)`
   display: flex;
   gap: 20px;
-
+  font-family: inherit;
   @media (max-width: 768px) {
     flex-direction: column;
     position: fixed;
@@ -62,7 +62,7 @@ const NavItem = styled(motion(NavLink))`
   position: relative;
   transition: color 0.3s ease-in-out;
   cursor: pointer;
-
+  font-family: inherit;
   &.active {
     color: #01045a;
     -webkit-text-stroke: 1px #01045a;

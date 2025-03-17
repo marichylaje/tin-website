@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaWhatsapp, FaBehance, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
-import { Button, Container, Form, IconLink, Input, LinkGroup, LinksContainer, SocialIconLink, Subtitle, Textarea, Title } from "./styles";
+import { Button, Container, Form, IconLink, Input, LinkGroup, LinksContainer, Subtitle, Textarea, Title } from "./styles";
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -18,14 +19,35 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`✅ Gracias ${form.name}, tu mensaje fue enviado.`);
-
-    setForm({
-      name: "",
-      email: "",
-      message: "",
+  
+    // Parámetros que usás en la plantilla de EmailJS
+    const templateParams = {
+      name: form.name,
+      email: form.email,
+      message: form.message,
+    };
+  
+    emailjs.send(
+      process.env.NEXT_PUBLIC_SERVICE_ID_EMAILJS as string,      // 👉 tu Service ID
+      process.env.NEXT_PUBLIC_TEMPLATE_ID_EMAILJS as string,     // 👉 tu Template ID
+      templateParams,
+      process.env.NEXT_PUBLIC_PUBLIC_KEY_EMAILJS as string   // 👉 tu Public Key (User ID)
+    )
+    .then((response) => {
+      console.log('SUCCESS!', response.status, response.text);
+      alert(`✅ Gracias ${form.name}, tu mensaje fue enviado.`);
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+    })
+    .catch((err) => {
+      console.error('FAILED...', err);
+      alert('❌ Ocurrió un error. Intenta nuevamente.');
     });
   };
+  
 
   return (
     <Container>
@@ -66,13 +88,13 @@ const Contact = () => {
       <LinksContainer>
         <LinkGroup>
           <IconLink
-            href="https://wa.me/34653032511"
+            href="https://wa.me/+34653032511"
             target="_blank"
             rel="noopener noreferrer"
             color="#10b981"
             hoverColor="#059669"
           >
-            <FaWhatsapp /> WhatsApp
+            <FaWhatsapp />
           </IconLink>
 
           <IconLink
@@ -80,32 +102,29 @@ const Contact = () => {
             color="#374151"
             hoverColor="#1f2937"
           >
-            <FaEnvelope /> Email
+            <FaEnvelope />
           </IconLink>
-        </LinkGroup>
-
-        <LinkGroup>
-          <SocialIconLink
-            href="https://www.behance.net/tuusuario"
+          <IconLink
+            href="https://www.behance.net/tinalbi"
             target="_blank"
             rel="noopener noreferrer"
             color="#3b82f6"
             hoverColor="#1d4ed8"
           >
             <FaBehance />
-          </SocialIconLink>
+          </IconLink>
 
-          <SocialIconLink
-            href="https://www.instagram.com/tuusuario"
+          <IconLink
+            href="https://www.instagram.com/seis.motionstudio/"
             target="_blank"
             rel="noopener noreferrer"
             color="#ec4899"
             hoverColor="#db2777"
           >
             <FaInstagram />
-          </SocialIconLink>
+          </IconLink>
 
-          <SocialIconLink
+          <IconLink
             href="https://www.linkedin.com/in/martin-albiñana-716a51319/"
             target="_blank"
             rel="noopener noreferrer"
@@ -113,7 +132,7 @@ const Contact = () => {
             hoverColor="#1d4ed8"
           >
             <FaLinkedin />
-          </SocialIconLink>
+          </IconLink>
         </LinkGroup>
       </LinksContainer>
     </Container>

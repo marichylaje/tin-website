@@ -12,13 +12,13 @@ export const Container = styled.div`
 export const Title = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
-  color: #1f2937;
   margin-bottom: 0.5rem;
+  font-family: inherit;
 `;
 
 export const Subtitle = styled.p`
-  color: #6b7280;
   margin-bottom: 2rem;
+  font-family: inherit;
 `;
 
 export const Form = styled.form`
@@ -30,6 +30,7 @@ export const Form = styled.form`
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  font-family: inherit;
   gap: 1rem;
 `;
 
@@ -40,9 +41,13 @@ export const Input = styled.input`
   border-radius: 0.375rem;
   outline: none;
   background-color: white;
+  font-family: inherit;
   &:focus {
     border-color: #3b82f6;
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  }
+  &::placeholder {
+    font-family: inherit;
   }
 `;
 
@@ -54,9 +59,13 @@ export const Textarea = styled.textarea`
   outline: none;
   background-color: white;
   resize: none;
+  font-family: inherit;
   &:focus {
     border-color: #3b82f6;
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  }
+  &::placeholder {
+    font-family: inherit;
   }
 `;
 
@@ -68,6 +77,7 @@ export const Button = styled.button`
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: inherit;
   &:hover {
     background-color: #1d4ed8;
   }
@@ -100,14 +110,5 @@ export const IconLink = styled.a<{ color: string; hoverColor: string }>`
   &:hover {
     color: #ffffff;
     background-color: ${(props) => props.hoverColor};
-  }
-`;
-
-export const SocialIconLink = styled.a<{ color: string; hoverColor: string }>`
-  color: ${(props) => props.color};
-  font-size: 1.75rem;
-  transition: color 0.3s ease;
-  &:hover {
-    color: ${(props) => props.hoverColor};
   }
 `;
